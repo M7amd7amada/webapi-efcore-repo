@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "M7amd7amada",
+  "classifications": ["WebApi"],
+  "name": "WebApi-EfCore-Repository",
+  "identity": "EfCore-Repo",
+  "shortName": "webapi-efcore-repo",
+  "tags": { "language": "C#", "type": "project" }
+}
