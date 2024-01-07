@@ -8,6 +8,7 @@ using Domain.Data;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Linq.Expressions;
 
 namespace DataAccess.Repositories;
 
@@ -49,18 +50,25 @@ public class RepositoryBase<TEntity, TRequest, TResponse>
         return _mapper.Map<TResponse>(entity);
     }
 
-    public async Task<PagedResult<TResponse>> GetAllAsync(int page = 0, int pageSize = 0)
+    public async Task<PagedResult<TResponse>> GetAllAsync(
+        int page = 0,
+        int pageSize = 0,
+        Expression<Func<TEntity, object>> orderBy = null!,
+        bool isDescending = false)
     {
         await Task.CompletedTask;
 
         page = (page <= 0) ? _appSettings.Pagination!.DefaultPage : page;
         pageSize = (pageSize <= 0) ? _appSettings.Pagination!.DefaultPageSize : pageSize;
 
-        PagedResult<TEntity> result = _entities
-            .AsNoTracking()
-            .GetPaged(page, pageSize);
+        IQueryable<TEntity> query = _entities.AsNoTracking();
 
-        var foo = _mapper.Map<PagedResult<TResponse>>(result);
+        if (orderBy is not null)
+        {
+            query = isDescending ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+        }
+
+        PagedResult<TEntity> result = query.GetPaged(page, pageSize);
 
         return _mapper.Map<PagedResult<TResponse>>(result);
     }

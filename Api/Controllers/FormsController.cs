@@ -12,6 +12,10 @@ public class FormsController : ApiController
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 5)
     {
-        return Ok(await _unitOfWork.Forms.GetAllAsync(page, pageSize));
+        return Ok(await _unitOfWork.Forms.GetAllAsync(
+            page,
+            pageSize,
+            entity => entity.FormId,
+            false));
     }
 }
