@@ -4,15 +4,15 @@ using DataAccess.Data;
 
 using Domain.Interfaces;
 using Domain.Settings;
+using Domain.Data;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-using TakidReciveForm.Domain.Data;
-
 namespace DataAccess.Repositories;
 
-public class RepositoryBase<TEntity, TRequest, TResponse> : IRepositoryBase<TEntity, TRequest, TResponse>
+public class RepositoryBase<TEntity, TRequest, TResponse>
+    : IRepositoryBase<TEntity, TRequest, TResponse>
     where TEntity : class
     where TRequest : class
     where TResponse : class
@@ -59,6 +59,8 @@ public class RepositoryBase<TEntity, TRequest, TResponse> : IRepositoryBase<TEnt
         PagedResult<TEntity> result = _entities
             .AsNoTracking()
             .GetPaged(page, pageSize);
+
+        var foo = _mapper.Map<PagedResult<TResponse>>(result);
 
         return _mapper.Map<PagedResult<TResponse>>(result);
     }

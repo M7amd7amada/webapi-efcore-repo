@@ -1,3 +1,5 @@
+using Domain.Interfaces;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -6,5 +8,10 @@ namespace Api.Controllers;
 [Route("api/[controller]/[action]")]
 public class ApiController : ControllerBase
 {
+    protected readonly IUnitOfWork _unitOfWork;
 
+    protected ApiController(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
 }

@@ -1,4 +1,4 @@
-namespace TakidReciveForm.Domain.Data;
+namespace Domain.Data;
 
 public static class PagedResultExtension
 {

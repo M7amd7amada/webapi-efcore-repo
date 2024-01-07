@@ -1,4 +1,4 @@
-using TakidReciveForm.Domain.Data;
+using Domain.Data;
 
 namespace Domain.Interfaces;
 
