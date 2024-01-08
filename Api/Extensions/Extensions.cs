@@ -26,6 +26,8 @@ public static class Extensions
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+        builder.Services.AddProblemDetails();
+
         builder.Services.AddApiServices();
 
         return builder;
