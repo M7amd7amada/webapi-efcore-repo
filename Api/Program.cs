@@ -2,7 +2,8 @@ using Api.Extensions;
 
 var app = WebApplication.CreateBuilder().ConfigureServices().Build();
 
-app.UseExceptionHandler("/error");
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 if (app.Environment.IsDevelopment())
 {

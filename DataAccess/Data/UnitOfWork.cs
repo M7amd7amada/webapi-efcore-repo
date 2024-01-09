@@ -21,9 +21,9 @@ public class UnitOfWork : IUnitOfWork
     }
     public IFormRepository Forms { get; private set; }
 
-    public async Task<int> CompleteAsync()
+    public async Task<bool> CompleteAsync()
     {
-        return await _context.SaveChangesAsync();
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public async void Dispose()
