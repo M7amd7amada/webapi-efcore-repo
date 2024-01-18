@@ -16,6 +16,9 @@ public static class Extensions
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddHealthChecks()
+            .AddSqlServer(connectionString!, tags: ["database"]);
+
         builder.Services.AddControllers();
 
         builder.Services.AddDbContext<AppDbContext>(options =>
